@@ -23,13 +23,20 @@ import java.security.NoSuchAlgorithmException;
 
 @Configuration
 public class RabbitConfig {
-    public static final String QUEUE_NAME = "transactions-queue";
-    /*public static final String QUEUE_NAME_2 = "transactions-queue-2";
-    public static final String QUEUE_NAME_ERRORS = "transactions-queue-errors";
-    public static final String EXCHANGE_NAME = "transactions-exchange";
-    public static final String ROUTING_KEY_NAME = "transactions.routing.key";
-    public static final String ROUTING_KEY_NAME_ERROR = "transactions.error.routing.key";*/
-    public static final String URI_NAME = "amqps://jotoppxd:OXipdv5_3evj0aMozQ0N4hvW8jzPG2xF@cow.rmq2.cloudamqp.com/jotoppxd";
+    public static final String QUEUE_NAME_TRANSACTIONS = "transactions-queue";
+    public static final String QUEUE_NAME_ACCOUNTS = "accounts-queue";
+    public static final String QUEUE_NAME_ALL = "all-queue";
+    public static final String QUEUE_NAME_ERRORS_TRANSACTIONS = "transactions-errors-queue";
+    public static final String QUEUE_NAME_ERRORS_ACCOUNTS = "accounts-errors-queue";
+    public static final String QUEUE_NAME_ERRORS = "errors-queue";
+    public static final String EXCHANGE_NAME = "bank-exchange";
+    public static final String ROUTING_KEY_NAME_ACCOUNTS = "accounts.routing.key";
+    public static final String ROUTING_KEY_NAME_TRANSACTIONS = "transactions.routing.key";
+    public static final String ROUTING_KEY_NAME_ALL = "all.routing.key";
+    public static final String ROUTING_KEY_NAME_ERROR = "errors.routing.key";
+    public static final String ROUTING_KEY_NAME_ERROR_TRANSACTIONS = "errors.transactions.routing.key";
+    public static final String ROUTING_KEY_NAME_ERROR_ACCOUNTS = "errors.accounts.routing.key";
+    public static final String URI_NAME = "amqps://frrbuzmm:ywSFdD7KMqE6rfoe2osmgX9w_Av74CoJ@cow.rmq2.cloudamqp.com/frrbuzmm";
 
     /*@Bean
     public AmqpAdmin amqpAdmin() {

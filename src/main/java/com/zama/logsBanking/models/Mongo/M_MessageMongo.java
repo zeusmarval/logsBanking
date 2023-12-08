@@ -1,19 +1,20 @@
-package com.zama.logsBanking.models;
+package com.zama.logsBanking.models.Mongo;
 
-import org.springframework.data.annotation.Id;
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-public class Message {
-
-    @Id
+@Document("M_Message")
+@Data
+public class M_MessageMongo {
     private String id;
     private LocalDateTime dateT;
     private String origin;
     private String messageType;
     private String message;
 
-    public Message(LocalDateTime dateT, String origin, String messageType, String message) {
+    public M_MessageMongo() {
         this.dateT = dateT;
         this.origin = origin;
         this.messageType = messageType;
@@ -36,7 +37,7 @@ public class Message {
         this.dateT = dateT;
     }
 
-    public String getOrigin() {
+    public String getOrigin(String queueNameTransactions) {
         return origin;
     }
 
@@ -58,5 +59,16 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "M_MessageMongo{" +
+                "id='" + id + '\'' +
+                ", dateT=" + dateT +
+                ", origin='" + origin + '\'' +
+                ", messageType='" + messageType + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

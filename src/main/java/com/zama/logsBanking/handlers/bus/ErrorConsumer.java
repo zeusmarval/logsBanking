@@ -14,8 +14,8 @@ import reactor.rabbitmq.Receiver;
 import java.time.LocalDateTime;
 
 @Component
-@Order(3)
-public class MessageConsumer implements CommandLineRunner {
+@Order(4)
+public class ErrorConsumer implements CommandLineRunner {
 
     @Autowired
     private Receiver receiver;
@@ -28,15 +28,15 @@ public class MessageConsumer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        receiver.consumeAutoAck(RabbitConfig.QUEUE_NAME_ALL)
+        receiver.consumeAutoAck(RabbitConfig.QUEUE_NAME_ERRORS)
                 .map(message -> {
                     String errorMessage = new String(message.getBody());
 
                     M_MessageMongo messageMongo = new M_MessageMongo();
 
                     messageMongo.setDateT(LocalDateTime.now());
-                    messageMongo.setOrigin(RabbitConfig.QUEUE_NAME_ALL);
-                    messageMongo.setMessageType("log: ");
+                    messageMongo.setOrigin(RabbitConfig.QUEUE_NAME_ERRORS);
+                    messageMongo.setMessageType("Error: ");
                     messageMongo.setMessage(errorMessage);
 
                     iMessage.saveMessage(messageMongo).subscribe();
