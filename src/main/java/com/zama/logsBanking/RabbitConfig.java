@@ -37,26 +37,37 @@ public class RabbitConfig {
     public static final String ROUTING_KEY_NAME_ERROR_TRANSACTIONS = "errors.transactions.routing.key";
     public static final String ROUTING_KEY_NAME_ERROR_ACCOUNTS = "errors.accounts.routing.key";
     public static final String URI_NAME = "amqps://frrbuzmm:ywSFdD7KMqE6rfoe2osmgX9w_Av74CoJ@cow.rmq2.cloudamqp.com/frrbuzmm";
+    //public static final String URI_NAME = "amqps://guest:guest@rabbitmq";
 
-    /*@Bean
+    @Bean
     public AmqpAdmin amqpAdmin() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(URI.create(URI_NAME));
         var amqpAdmin =  new RabbitAdmin(connectionFactory);
 
         var exchange = new TopicExchange(EXCHANGE_NAME);
-        var queue = new Queue(QUEUE_NAME, true, false, false);
-        var queue2 = new Queue(QUEUE_NAME_2, true, false, false);
-        var queue3 = new Queue(QUEUE_NAME_ERRORS, true, false, false);
+        var queue_transactions = new Queue(QUEUE_NAME_TRANSACTIONS, true, false, false);
+        var queue_accounts = new Queue(QUEUE_NAME_ACCOUNTS, true, false, false);
+        var queue_errors_transactions = new Queue(QUEUE_NAME_ERRORS_TRANSACTIONS, true, false, false);
+        var queue_errors_accounts = new Queue(QUEUE_NAME_ERRORS_ACCOUNTS, true, false, false);
+        var queue_errors = new Queue(QUEUE_NAME_ERRORS, true, false, false);
+        var queue_all = new Queue(QUEUE_NAME_ALL, true, false, false);
         amqpAdmin.declareExchange(exchange);
-        amqpAdmin.declareQueue(queue);
-        amqpAdmin.declareQueue(queue2);
-        amqpAdmin.declareQueue(queue3);
-        amqpAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY_NAME));
-        amqpAdmin.declareBinding(BindingBuilder.bind(queue2).to(exchange).with(ROUTING_KEY_NAME));
-        amqpAdmin.declareBinding(BindingBuilder.bind(queue3).to(exchange).with(ROUTING_KEY_NAME_ERROR));
+        amqpAdmin.declareQueue(queue_transactions);
+        amqpAdmin.declareQueue(queue_accounts);
+        amqpAdmin.declareQueue(queue_errors_transactions);
+        amqpAdmin.declareQueue(queue_errors_accounts);
+        amqpAdmin.declareQueue(queue_errors);
+        amqpAdmin.declareQueue(queue_all);
+        amqpAdmin.declareBinding(BindingBuilder.bind(queue_transactions).to(exchange).with(ROUTING_KEY_NAME_TRANSACTIONS));
+        amqpAdmin.declareBinding(BindingBuilder.bind(queue_accounts).to(exchange).with(ROUTING_KEY_NAME_ACCOUNTS));
+        amqpAdmin.declareBinding(BindingBuilder.bind(queue_all).to(exchange).with(ROUTING_KEY_NAME_ALL));
+        amqpAdmin.declareBinding(BindingBuilder.bind(queue_errors_transactions).to(exchange).with(ROUTING_KEY_NAME_ERROR_TRANSACTIONS));
+        amqpAdmin.declareBinding(BindingBuilder.bind(queue_errors).to(exchange).with(ROUTING_KEY_NAME_ERROR));
+        amqpAdmin.declareBinding(BindingBuilder.bind(queue_errors_accounts).to(exchange).with(ROUTING_KEY_NAME_ERROR_ACCOUNTS));
 
         return amqpAdmin;
-    }*/
+    }
+
 
     @Bean
     public ConnectionFactory connectionFactory() throws NoSuchAlgorithmException, KeyManagementException, URISyntaxException {
@@ -71,17 +82,17 @@ public class RabbitConfig {
         return Mono.fromCallable(() -> connectionFactory.newConnection(name)).cache();
     }
 
-    /*@Bean
+    @Bean
     public SenderOptions senderOptions(Mono<Connection> connectionMono) {
         return new SenderOptions()
                 .connectionMono(connectionMono)
                 .resourceManagementScheduler(Schedulers.boundedElastic());
-    }*/
+    }
 
-    /*@Bean
+    @Bean
     public Sender sender(SenderOptions senderOptions) {
         return RabbitFlux.createSender(senderOptions);
-    }*/
+    }
 
 
     @Bean
