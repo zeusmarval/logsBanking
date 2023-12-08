@@ -42,7 +42,7 @@ public class CuentaConsumer implements CommandLineRunner {
 
                     messageMongo.setDateT(LocalDateTime.now());
                     messageMongo.setOrigin(RabbitConfig.QUEUE_NAME_ACCOUNTS);
-                    messageMongo.setMessageType("Cuenta: ");
+                    messageMongo.setMessageType("Cuenta Creada: ");
                     messageMongo.setMessage(cuenta.toString());
 
                     iMessage.saveMessage(messageMongo).subscribe();
